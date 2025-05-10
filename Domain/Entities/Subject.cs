@@ -14,7 +14,7 @@ namespace CreditEnrollmentApp.Domain.Entities
 
 
         // Relación con el profesor (uno a muchos)
-        public int ProfessorId { get; set; }  // Relación con el profesor
+        public int? ProfessorId { get; set; }// Relación con el profesor
         public Professor Professor { get; set; }  // Propiedad de navegación
     }
 

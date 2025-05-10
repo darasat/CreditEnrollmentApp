@@ -68,6 +68,11 @@ namespace Infrastructure.Persistence.Data
             modelBuilder.Entity<StudentProgramEnrollment>()
                 .ToTable("StudentProgramEnrollment"); // Asegúrate de que la tabla se llame correctamente
 
+            modelBuilder.Entity<Subject>()
+              .HasOne(s => s.Professor)
+              .WithMany(p => p.Subjects)
+              .HasForeignKey(s => s.ProfessorId);
+
             base.OnModelCreating(modelBuilder);
         }
 

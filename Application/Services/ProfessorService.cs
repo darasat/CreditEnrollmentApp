@@ -75,7 +75,7 @@ namespace Application.Services
                 throw new Exception("Materia no encontrada");
             }
 
-            var professor = await _professorRepository.GetProfessorByIdAsync(subject.ProfessorId);
+            var professor = await _professorRepository.GetProfessorByIdAsync((int)subject.ProfessorId);
             if (professor == null)
             {
                 return null;  // Si no hay profesor asignado, retorna null
