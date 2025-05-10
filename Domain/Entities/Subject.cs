@@ -11,6 +11,11 @@ namespace CreditEnrollmentApp.Domain.Entities
 
         // Agregar la propiedad de navegación
         public List<StudentSubject> StudentSubjects { get; set; } = new List<StudentSubject>();
+
+
+        // Relación con el profesor (uno a muchos)
+        public int ProfessorId { get; set; }  // Relación con el profesor
+        public Professor Professor { get; set; }  // Propiedad de navegación
     }
 
 }

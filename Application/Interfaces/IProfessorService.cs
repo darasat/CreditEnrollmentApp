@@ -14,5 +14,7 @@ namespace Application.Interfaces
         Task<Professor> CreateAsync(Professor professor);
         Task<Professor> UpdateAsync(Professor professor);
         Task DeleteAsync(int id);
+        Task AssignProfessorToSubjectAsync(int subjectId, int professorId);
+        Task<Professor> GetProfessorForSubjectAsync(int subjectId);
     }
 }

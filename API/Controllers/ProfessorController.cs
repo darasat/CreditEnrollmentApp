@@ -2,6 +2,7 @@
 using Application.Services;
 using CreditEnrollmentApp.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -69,5 +70,36 @@ namespace CreditEnrollmentApp.API.Controllers
             await _professorService.DeleteAsync(id);
             return NoContent();
         }
+
+        // POST: api/professors/assign-to-subject/{subjectId}
+        [HttpPost("assign-to-subject/{subjectId}")]
+        public async Task<IActionResult> AssignProfessorToSubject(int subjectId, [FromBody] int professorId)
+        {
+            try
+            {
+                // Asignamos el profesor a la materia
+                await _professorService.AssignProfessorToSubjectAsync(subjectId, professorId);
+                return Ok("Profesor asignado correctamente a la materia.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al asignar profesor: {ex.Message}");
+            }
+        }
+
+        // GET: api/professors/assigned-to-subject/{subjectId}
+        [HttpGet("assigned-to-subject/{subjectId}")]
+        public async Task<ActionResult<Professor>> GetProfessorForSubject(int subjectId)
+        {
+            var professor = await _professorService.GetProfessorForSubjectAsync(subjectId);
+
+            if (professor == null)
+            {
+                return NotFound("No hay profesor asignado a esta materia.");
+            }
+
+            return Ok(professor);
+        }
+
     }
 }
