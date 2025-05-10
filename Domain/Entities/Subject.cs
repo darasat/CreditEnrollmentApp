@@ -1,5 +1,6 @@
 using Domain.Entities;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace CreditEnrollmentApp.Domain.Entities
 {
@@ -10,6 +11,7 @@ namespace CreditEnrollmentApp.Domain.Entities
         public int Credits { get; set; }
 
         // Agregar la propiedad de navegación
+        [JsonIgnore]
         public List<StudentSubject> StudentSubjects { get; set; } = new List<StudentSubject>();
 
 

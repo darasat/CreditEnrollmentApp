@@ -1,5 +1,6 @@
 using Domain.Entities;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace CreditEnrollmentApp.Domain.Entities
 {
@@ -7,7 +8,9 @@ namespace CreditEnrollmentApp.Domain.Entities
     {
         public int ProfessorId { get; set; }
         public string Name { get; set; }
-        public List<StudentSubject> ProfessorSubjects { get; set; } = new List<StudentSubject>();
+        [JsonIgnore]
+        public List<StudentSubject> ProfessorSubjects { get; set; } = new List<StudentSubject>(); 
+        [JsonIgnore]
         public List<Subject> Subjects { get; set; } = new List<Subject>();
     }
 }
