@@ -11,5 +11,9 @@ namespace Application.Interfaces
         Task<Student> CreateAsync(Student student);
         Task<Student> UpdateAsync(Student student);
         Task DeleteAsync(int id);
+
+        Task AssignProgramToStudentAsync(int studentId, int programId);
+        Task AssignSubjectsToStudentAsync(int studentId, List<int> subjectIds);
+        Task<IEnumerable<Student>> GetSharedStudentsAsync(int studentId);
     }
 }

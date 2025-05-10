@@ -3,6 +3,7 @@ using Domain.Interfaces;
 using Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CreditEnrollmentApp.Infrastructure.Repositories
@@ -48,6 +49,13 @@ namespace CreditEnrollmentApp.Infrastructure.Repositories
                 _context.Subjects.Remove(subject);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<List<Subject>> GetSubjectsByIdsAsync(List<int> subjectIds)
+        {
+            return await _context.Subjects
+                                 .Where(s => subjectIds.Contains(s.SubjectId))
+                                 .ToListAsync();
         }
     }
 }

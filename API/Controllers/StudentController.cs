@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System;
+using Domain.Dto;
 
 namespace CreditEnrollmentApp.API.Controllers
 {
@@ -13,10 +15,12 @@ namespace CreditEnrollmentApp.API.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly IStudentService _studentService;
+        private readonly ISubjectService _subjectService;
 
-        public StudentsController(IStudentService studentService)
+        public StudentsController(IStudentService studentService, ISubjectService subjectService)
         {
             _studentService = studentService;
+            _subjectService = subjectService;
         }
 
         // GET: api/students
@@ -46,15 +50,7 @@ namespace CreditEnrollmentApp.API.Controllers
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {
             var createdStudent = await _studentService.CreateAsync(student);
-
-            var options = new JsonSerializerOptions
-            {
-                ReferenceHandler = ReferenceHandler.Preserve
-            };
-
-            var studentJson = JsonSerializer.Serialize(createdStudent, options);
-
-            return Ok(studentJson);
+            return CreatedAtAction(nameof(GetStudent), new { id = createdStudent.StudentId }, createdStudent);
         }
 
         // PUT: api/students/5
@@ -78,5 +74,51 @@ namespace CreditEnrollmentApp.API.Controllers
             await _studentService.DeleteAsync(id);
             return NoContent();
         }
+
+        // POST: api/students/assign-program
+        [HttpPost("assign-program")]
+        public async Task<IActionResult> AssignProgramToStudent([FromBody] StudentProgramRequestDto request)
+        {
+            try
+            {
+                await _studentService.AssignProgramToStudentAsync(request.StudentId, request.ProgramId);
+                return Ok("Estudiante asignado al programa correctamente.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al asignar programa: {ex.Message}");
+            }
+        }
+
+        // POST: api/students/assign-subjects
+        [HttpPost("assign-subjects")]
+        public async Task<IActionResult> AssignSubjectsToStudent([FromBody] StudentSubjectsRequestDto request)
+        {
+            try
+            {
+                await _studentService.AssignSubjectsToStudentAsync(request.StudentId, request.SubjectIds);
+                return Ok("Materias asignadas al estudiante correctamente.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al asignar materias: {ex.Message}");
+            }
+        }
+
+        // GET: api/students/{id}/shared-students
+        [HttpGet("{id}/shared-students")]
+        public async Task<ActionResult<IEnumerable<Student>>> GetSharedStudents(int id)
+        {
+            try
+            {
+                var students = await _studentService.GetSharedStudentsAsync(id);
+                return Ok(students);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al obtener estudiantes compartidos: {ex.Message}");
+            }
+        }
     }
+
 }

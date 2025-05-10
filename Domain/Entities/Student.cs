@@ -1,6 +1,7 @@
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace CreditEnrollmentApp.Domain.Entities
 {
@@ -12,8 +13,11 @@ namespace CreditEnrollmentApp.Domain.Entities
         public DateTime CreatedAt { get; set; } // Para reflejar la fecha de creación
 
         // Relación con las materias
+        [JsonIgnore]
         public List<StudentSubject> StudentSubjects { get; set; } = new List<StudentSubject>();
+        [JsonIgnore]
         public List<StudentProgramEnrollment> StudentEnrollments { get; set; } = new List<StudentProgramEnrollment>();
+        public int? ProgramId { get; set; }
     }
 
 }

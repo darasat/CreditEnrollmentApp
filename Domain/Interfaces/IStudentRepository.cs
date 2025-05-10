@@ -14,5 +14,8 @@ namespace Domain.Interfaces
         Task AddAsync(Student student);
         Task UpdateAsync(Student student);
         Task DeleteAsync(int id);
+        Task AssignProgramAsync(int studentId, int programId);
+        Task AssignSubjectsAsync(int studentId, List<int> subjectIds);
+        Task<IEnumerable<Student>> GetSharedStudentsAsync(int studentId);
     }
 }

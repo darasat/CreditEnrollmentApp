@@ -50,5 +50,11 @@ namespace CreditEnrollmentApp.Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<ProgramCredit> GetByIdAsync(int id)
+        {
+            return await _context.ProgramCredits
+                                 .FirstOrDefaultAsync(p => p.ProgramId == id);
+        }
     }
 }
