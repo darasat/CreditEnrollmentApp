@@ -1,1 +1,1 @@
-# Frontend Angular - Backend ASP.NET Core API
+# Backend ASP.NET Core API
