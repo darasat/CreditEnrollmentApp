@@ -12,14 +12,12 @@ namespace Infrastructure.Persistence.Data
             : base(options)
         {
         }
-
         public DbSet<Student> Students { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Professor> Professors { get; set; }
         public DbSet<StudentSubject> StudentSubjects { get; set; }
         public DbSet<StudentProgramEnrollment> StudentProgramEnrollments { get; set; }
         public DbSet<ProgramCredit> ProgramCredits{ get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,5 +1,4 @@
 ﻿using CreditEnrollmentApp.Domain.Entities;
-using Domain.Interfaces;
 using Domain.Interfaces.Domain.Interfaces;
 using Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;

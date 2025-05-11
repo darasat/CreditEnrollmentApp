@@ -4,7 +4,6 @@ using Domain.Dto;
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Interfaces.Domain.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -78,7 +77,7 @@ namespace Application.Services
             {
                 StudentId = dto.StudentId,
                 SubjectId = dto.SubjectId,
-                ProfessorId = dto.TeacherId
+                ProfessorId = dto.ProfessorId
             }).ToList();
 
             await _studentRepository.AddRangeAsync(records);

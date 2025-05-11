@@ -10,14 +10,13 @@ namespace CreditEnrollmentApp.Domain.Entities
         public string SubjectName { get; set; }
         public int Credits { get; set; }
 
-        // Agregar la propiedad de navegación
         [JsonIgnore]
         public List<StudentSubject> StudentSubjects { get; set; } = new List<StudentSubject>();
 
 
         // Relación con el profesor (uno a muchos)
-        public int? ProfessorId { get; set; }// Relación con el profesor
-        public Professor Professor { get; set; }  // Propiedad de navegación
+        public int? ProfessorId { get; set; }
+        public Professor Professor { get; set; } 
     }
 
 }

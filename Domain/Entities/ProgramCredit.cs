@@ -10,7 +10,6 @@ namespace CreditEnrollmentApp.Domain.Entities
         public string ProgramName { get; set; }
         public int Credits { get; set; }
 
-        // Relación con los estudiantes
         [JsonIgnore]
         public List<StudentProgramEnrollment> StudentEnrollments { get; set; } = new List<StudentProgramEnrollment>();
     }

@@ -1,6 +1,5 @@
 ﻿using Application.Interfaces;
 using CreditEnrollmentApp.Domain.Entities;
-using Domain.Interfaces;
 using Domain.Interfaces.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;

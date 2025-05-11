@@ -2,8 +2,6 @@ using Application.Interfaces;
 using CreditEnrollmentApp.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System;
 using Domain.Dto;
