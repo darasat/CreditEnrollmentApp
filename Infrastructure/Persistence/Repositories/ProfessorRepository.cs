@@ -18,9 +18,10 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<IEnumerable<Professor>> GetAllProfessorsAsync()
         {
-            return await _context.Professors.ToListAsync();
+            return await _context.Professors
+                .Include(p => p.ProfessorSubjects)
+                .ToListAsync();
         }
-
         public async Task<Professor> GetProfessorByIdAsync(int id)
         {
             return await _context.Professors.FindAsync(id);

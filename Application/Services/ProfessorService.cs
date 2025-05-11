@@ -1,8 +1,10 @@
 ﻿using Application.Interfaces;
 using CreditEnrollmentApp.Domain.Entities;
+using Domain.Dto;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -18,10 +20,22 @@ namespace Application.Services
             _subjectRepository = subjectRepository;
         }
 
-        public async Task<IEnumerable<Professor>> GetAllAsync()
+        public async Task<IEnumerable<ProfessorDto>> GetAllAsync()
         {
-            return await _professorRepository.GetAllProfessorsAsync();
+            // Asegúrate de que este método incluye las materias
+            var professors = await _professorRepository.GetAllProfessorsAsync();
+
+            // Mapear a DTO
+            var professorDtos = professors.Select(professor => new ProfessorDto
+            {
+                ProfessorId = professor.ProfessorId,
+                Name = professor.Name,
+                SubjectIds = professor.ProfessorSubjects.Select(ps => ps.SubjectId).ToList()
+            }).ToList();
+
+            return professorDtos;
         }
+
 
         public async Task<Professor> GetByIdAsync(int id)
         {
@@ -66,8 +80,7 @@ namespace Application.Services
             await _subjectRepository.UpdateSubjectAsync(subject);  // Asegúrate de que el repositorio de materias tenga este método.
         }
 
-        // Método para obtener el profesor asignado a una materia
-        public async Task<Professor> GetProfessorForSubjectAsync(int subjectId)
+        public async Task<ProfessorDto> GetProfessorForSubjectAsync(int subjectId)
         {
             var subject = await _subjectRepository.GetSubjectByIdAsync(subjectId);
             if (subject == null)
@@ -78,10 +91,18 @@ namespace Application.Services
             var professor = await _professorRepository.GetProfessorByIdAsync((int)subject.ProfessorId);
             if (professor == null)
             {
-                return null;  // Si no hay profesor asignado, retorna null
+                return null;
             }
 
-            return professor;
+            // Mapear al DTO
+            var professorDto = new ProfessorDto
+            {
+                ProfessorId = professor.ProfessorId,
+                Name = professor.Name,
+                SubjectIds = professor.Subjects.Select(s => s.SubjectId).ToList() // O cualquier otra info relevante
+            };
+
+            return professorDto;
         }
 
         public async Task AssignTeacherToSubjectAsync(int professorId, int subjectId)

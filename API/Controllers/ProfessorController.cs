@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Application.Services;
 using CreditEnrollmentApp.Domain.Entities;
+using Domain.Dto;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace CreditEnrollmentApp.API.Controllers
 
         // GET: api/professors
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Professor>>> GetProfessors()
+        public async Task<ActionResult<IEnumerable<ProfessorDto>>> GetProfessors()
         {
             var professors = await _professorService.GetAllAsync();
             return Ok(professors);
@@ -89,7 +90,7 @@ namespace CreditEnrollmentApp.API.Controllers
 
         // GET: api/professors/assigned-to-subject/{subjectId}
         [HttpGet("assigned-to-subject/{subjectId}")]
-        public async Task<ActionResult<Professor>> GetProfessorForSubject(int subjectId)
+        public async Task<ActionResult<ProfessorDto>> GetProfessorForSubject(int subjectId)
         {
             var professor = await _professorService.GetProfessorForSubjectAsync(subjectId);
 
@@ -100,6 +101,7 @@ namespace CreditEnrollmentApp.API.Controllers
 
             return Ok(professor);
         }
+
 
     }
 }

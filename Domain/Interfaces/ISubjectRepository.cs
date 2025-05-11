@@ -15,5 +15,7 @@ namespace Domain.Interfaces
         Task<Subject> UpdateSubjectAsync(Subject subject);
         Task DeleteSubjectAsync(int id);
         Task<List<Subject>> GetSubjectsByIdsAsync(List<int> subjectIds);
+
+        Task<List<Subject>> GetSubjectsByProfessorIdAsync(int professorId);
     }
 }

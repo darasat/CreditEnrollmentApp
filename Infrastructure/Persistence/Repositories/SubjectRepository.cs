@@ -57,5 +57,12 @@ namespace CreditEnrollmentApp.Infrastructure.Repositories
                                  .Where(s => subjectIds.Contains(s.SubjectId))
                                  .ToListAsync();
         }
+
+        public async Task<List<Subject>> GetSubjectsByProfessorIdAsync(int professorId)
+        {
+            return await _context.Subjects
+                                 .Where(s => s.ProfessorId == professorId)
+                                 .ToListAsync();
+        }
     }
 }
