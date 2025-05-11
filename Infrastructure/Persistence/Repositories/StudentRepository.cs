@@ -35,9 +35,28 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task AddAsync(Student student)
         {
-            await _context.Students.AddAsync(student);
-            await _context.SaveChangesAsync();
+            try
+            {
+                student.CreatedAt = DateTime.UtcNow;
+                await _context.Students.AddAsync(student);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Aquí puedes manejar errores relacionados con la base de datos
+                // Por ejemplo, puedes hacer un log del error
+                Console.Error.WriteLine($"Error al guardar los cambios: {ex.Message}");
+                // Aquí podrías lanzar una excepción personalizada o re-lanzar la excepción original
+                throw new Exception("Ocurrió un error al intentar agregar el estudiante.", ex);
+            }
+            catch (Exception ex)
+            {
+                // Captura cualquier otra excepción general
+                Console.Error.WriteLine($"Error inesperado: {ex.Message}");
+                throw new Exception("Ocurrió un error inesperado.", ex);
+            }
         }
+
 
         public async Task UpdateAsync(Student student)
         {
@@ -53,6 +72,12 @@ namespace Infrastructure.Persistence.Repositories
                 _context.Students.Remove(student);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task AddRangeAsync(IEnumerable<StudentSubject> entities)
+        {
+            await _context.StudentSubjects.AddRangeAsync(entities);
+            await _context.SaveChangesAsync();
         }
 
         public async Task AssignProgramAsync(int studentId, int programId)

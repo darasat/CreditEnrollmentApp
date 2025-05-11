@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System;
 using Domain.Dto;
+using System.Linq;
 
 namespace CreditEnrollmentApp.API.Controllers
 {
@@ -117,6 +118,24 @@ namespace CreditEnrollmentApp.API.Controllers
             catch (Exception ex)
             {
                 return BadRequest($"Error al obtener estudiantes compartidos: {ex.Message}");
+            }
+        }
+
+        [HttpPost("register-subject-teachers")]
+        public async Task<IActionResult> RegisterSubjectTeachers([FromBody] List<SubjectTeacherDto> dtos)
+        {
+            if (dtos == null || !dtos.Any())
+                return BadRequest("No se proporcionaron datos para registrar.");
+
+            try
+            {
+                await _studentService.RegisterSubjectTeachersAsync(dtos);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                // Aquí puedes mejorar el manejo de errores si lo deseas
+                return StatusCode(500, $"Error al registrar materias con profesores: {ex.Message}");
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using CreditEnrollmentApp.Domain.Entities;
+using Domain.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,5 +16,6 @@ namespace Application.Interfaces
         Task AssignProgramToStudentAsync(int studentId, int programId);
         Task AssignSubjectsToStudentAsync(int studentId, List<int> subjectIds);
         Task<IEnumerable<Student>> GetSharedStudentsAsync(int studentId);
+        Task RegisterSubjectTeachersAsync(List<SubjectTeacherDto> dtos);
     }
 }

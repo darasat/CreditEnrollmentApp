@@ -8,7 +8,8 @@ namespace Domain.Dto
 {
     public class SubjectTeacherDto
     {
-        public int SubjectId { get; set; }  // El ID de la materia
-        public int ProfessorId { get; set; } // El ID del profesor asignado
+        public int StudentId { get; set; }
+        public int SubjectId { get; set; }
+        public int TeacherId { get; set; }
     }
 }

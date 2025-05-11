@@ -1,4 +1,5 @@
 ﻿using CreditEnrollmentApp.Domain.Entities;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace Domain.Interfaces
         Task AssignProgramAsync(int studentId, int programId);
         Task AssignSubjectsAsync(int studentId, List<int> subjectIds);
         Task<IEnumerable<Student>> GetSharedStudentsAsync(int studentId);
+        Task AddRangeAsync(IEnumerable<StudentSubject> entities);
     }
 }

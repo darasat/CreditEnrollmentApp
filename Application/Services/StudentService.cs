@@ -1,10 +1,12 @@
 ﻿using Application.Interfaces;
 using CreditEnrollmentApp.Domain.Entities;
+using Domain.Dto;
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Interfaces.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -68,6 +70,18 @@ namespace Application.Services
         {
             // Llamar al repositorio para obtener los estudiantes compartidos.
             return await _studentRepository.GetSharedStudentsAsync(studentId);
+        }
+
+        public async Task RegisterSubjectTeachersAsync(List<SubjectTeacherDto> dtos)
+        {
+            var records = dtos.Select(dto => new StudentSubject
+            {
+                StudentId = dto.StudentId,
+                SubjectId = dto.SubjectId,
+                ProfessorId = dto.TeacherId
+            }).ToList();
+
+            await _studentRepository.AddRangeAsync(records);
         }
 
     }
